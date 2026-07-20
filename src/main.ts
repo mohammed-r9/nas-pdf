@@ -2,8 +2,10 @@ import JSZip from "jszip";
 import { renderFiles, setErr } from "./utils";
 import { formatName } from "./utils";
 
-const input = document.getElementById("files") as HTMLInputElement;
-const list = document.getElementById("file-list") as HTMLUListElement;
+const input = document.querySelector("#files") as HTMLInputElement;
+const list = document.querySelector("#file-list") as HTMLUListElement;
+const fileCount = document.querySelector<HTMLSpanElement>("#file-count")!;
+const separator = document.querySelector<HTMLSpanElement>("#separator")!;
 
 const yearInput = document.querySelector<HTMLInputElement>("#year")!;
 const monthInput = document.querySelector<HTMLInputElement>("#month")!;
@@ -13,7 +15,8 @@ let files: File[] = [];
 
 input.addEventListener("change", () => {
 	files = Array.from(input.files ?? []);
-
+	fileCount.innerText = files.length.toString() || ""
+	separator.innerText = files.length > 0 ? ":" : ""
 	files.sort((a, b) => a.lastModified - b.lastModified);
 
 	renderFiles(list, files);
@@ -41,22 +44,22 @@ processButton?.addEventListener("click", async () => {
 	const startAtStr = startAtInput.value.trim();
 
 	if (files.length === 0) {
-		setErr("يرجى إضافة ملفات أولاً.");
+		setErr("يرجى تحديد ملف واحد على الأقل.");
 		return;
 	}
 
 	if (yearStr === "" || yearStr === "00") {
-		setErr("الرجاء إدخال سنة صحيحة.");
+		setErr("أدخل سنة صحيحة.");
 		return;
 	}
 
 	if (monthStr === "" || monthStr === "00") {
-		setErr("الرجاء إدخال شهر صحيح.");
+		setErr("أدخل شهرًا صحيحًا.");
 		return;
 	}
 
 	if (startAtStr === "" || startAtStr === "00") {
-		setErr("الرجاء إدخال رقم بداية صحيح.");
+		setErr("أدخل رقمًا تسلسليًا صحيحًا.");
 		return;
 	}
 

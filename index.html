@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 	<head>
 		<meta charset="UTF-8" />
@@ -8,7 +9,7 @@
 	</head>
 	<body class="flex min-h-screen items-center justify-center bg-zinc-100 p-6">
 		<main class="w-full max-w-2xl rounded-xl bg-white p-8 shadow-md">
-			<h1 class="mb-8 text-center text-2xl font-bold">معالجة ملفات PDF</h1>
+			<h1 class="mb-8 text-center text-2xl font-bold">إعادة تسمية ملفات PDF</h1>
 			<form class="space-y-6">
 				<div class="grid grid-cols-[120px_2rem_5rem_2rem] items-center gap-2">
 					<label for="year" class="font-medium">السنة</label>
@@ -37,7 +38,7 @@
 					<span></span>
 				</div>
 				<div class="grid grid-cols-[120px_2rem_5rem_2rem] items-center gap-2">
-					<label for="start" class="font-medium">البدء من</label>
+					<label for="start" class="font-medium">أول رقم تسلسلي</label>
 					<span></span>
 					<input
 						id="start"
@@ -49,7 +50,7 @@
 					<span></span>
 				</div>
 				<div class="space-y-3">
-					<label class="block font-medium">ملفات PDF</label>
+					<label class="block font-medium">الملفات</label>
 					<input
 						id="files"
 						name="files"
@@ -62,21 +63,25 @@
 						for="files"
 						class="flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-zinc-300 bg-zinc-50 px-6 py-10 text-center transition hover:border-zinc-500 hover:bg-zinc-100"
 					>
-						<span class="text-lg font-medium">📄 اختر ملفات PDF</span>
+						<span class="text-lg font-medium">اختر ملفات PDF</span>
 						<span class="mt-2 text-sm text-zinc-500">
-							يمكنك اختيار ملف واحد أو مئات الملفات دفعةً واحدة
+							يمكنك اختيار ملف واحد أو عدة ملفات.
 						</span>
 					</label>
 					<div>
-						<h2 class="mb-2 text-sm font-medium text-zinc-700">
-							الملفات المختارة
+						<div class="flex items-center mb-2 ">
+						<h2 class="text-md font-medium text-zinc-700">
+							الملفات المحددة
 						</h2>
+							<span id="separator"></span>
+						<span id="file-count" class="text-md font-medium text-zinc-700 mx-1"></span>
+						</div>
 						<ul
 							id="file-list"
 							class="max-h-64 space-y-2 overflow-y-auto rounded-lg border border-zinc-200 bg-zinc-50 p-3"
 						>
 							<li class="text-center text-sm text-zinc-400">
-								لم يتم اختيار أي ملفات بعد
+								لا توجد ملفات محددة.
 							</li>
 						</ul>
 					</div>
@@ -86,7 +91,7 @@
 					id="process-btn"
 					class="w-full rounded-lg bg-zinc-900 py-3 font-medium text-white transition hover:bg-zinc-800 hover:cursor-pointer disabled:bg-black/70 disabled:cursor-not-allowed"
 				>
-					إنشاء الملفات
+					إنشاء الملف المضغوط
 				</button>
 				<p id="err" class="text-red-700 text-lg"></p>
 			</form>
