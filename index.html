@@ -84,10 +84,11 @@
 				<button
 					type="button"
 					id="process-btn"
-					class="w-full rounded-lg bg-zinc-900 py-3 font-medium text-white transition hover:bg-zinc-800"
+					class="w-full rounded-lg bg-zinc-900 py-3 font-medium text-white transition hover:bg-zinc-800 hover:cursor-pointer disabled:bg-black/70 disabled:cursor-not-allowed"
 				>
 					إنشاء الملفات
 				</button>
+				<p id="err" class="text-red-700 text-lg"></p>
 			</form>
 		</main>
 		<script type="module" src="/src/main.ts"></script>
