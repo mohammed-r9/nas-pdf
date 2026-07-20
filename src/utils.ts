@@ -1,11 +1,13 @@
 type FormatNameParams = {
-	year: Number;
-	month: Number;
-	sequence: Number;
+	year: number;
+	month: number;
+	sequence: number;
 }
-// still not sure about the format
+
 export function formatName(params: FormatNameParams) {
-	return `${params.year}0${params.month}0${params.sequence}`
+	let prefix = `${params.year}0${params.month}0`
+	if (params.sequence < 10) prefix += "0"
+	return `${prefix}${params.sequence}`
 }
 
 export function renderFiles(list: HTMLUListElement, files: File[]) {
