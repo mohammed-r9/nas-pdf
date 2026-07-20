@@ -1,13 +1,101 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nas-pdf</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="stylesheet" href="./src/style.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>NAS PDF</title>
+	</head>
+	<body class="flex min-h-screen items-center justify-center bg-zinc-100 p-6">
+		<main class="w-full max-w-2xl rounded-xl bg-white p-8 shadow-md">
+			<h1 class="mb-8 text-center text-2xl font-bold">إعادة تسمية ملفات PDF</h1>
+			<form class="space-y-6">
+				<div class="grid grid-cols-[120px_2rem_5rem_2rem] items-center gap-2">
+					<label for="year" class="font-medium">السنة</label>
+					<span></span>
+					<input
+						id="year"
+						name="year"
+						type="text"
+						value="00"
+						maxlength="2"
+						class="w-full rounded border border-zinc-300 px-2 py-1 text-center focus:border-blue-500 focus:outline-none"
+					/>
+					<span class="text-center text-zinc-500">20</span>
+				</div>
+				<div class="grid grid-cols-[120px_2rem_5rem_2rem] items-center gap-2">
+					<label for="month" class="font-medium">الشهر</label>
+					<span></span>
+					<input
+						id="month"
+						name="month"
+						type="text"
+						value="00"
+						maxlength="2"
+						class="w-full rounded border border-zinc-300 px-2 py-1 text-center focus:border-blue-500 focus:outline-none"
+					/>
+					<span></span>
+				</div>
+				<div class="grid grid-cols-[120px_2rem_5rem_2rem] items-center gap-2">
+					<label for="start" class="font-medium">أول رقم تسلسلي</label>
+					<span></span>
+					<input
+						id="start"
+						name="start"
+						type="text"
+						value="00"
+						class="w-full rounded border border-zinc-300 px-2 py-1 text-center focus:border-blue-500 focus:outline-none"
+					/>
+					<span></span>
+				</div>
+				<p id="err" class="text-red-700 text-lg"></p>
+				<div class="space-y-3">
+					<label class="block font-medium">الملفات</label>
+					<input
+						id="files"
+						name="files"
+						type="file"
+						accept=".pdf,application/pdf"
+						multiple
+						class="hidden"
+					/>
+					<label
+						for="files"
+						class="flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-zinc-300 bg-zinc-50 px-6 py-10 text-center transition hover:border-zinc-500 hover:bg-zinc-100"
+					>
+						<span class="text-lg font-medium">اختر ملفات PDF</span>
+						<span class="mt-2 text-sm text-zinc-500">
+							يمكنك اختيار ملف واحد أو عدة ملفات.
+						</span>
+					</label>
+					<div>
+						<div class="flex items-center mb-2 ">
+						<h2 class="text-md font-medium text-zinc-700">
+							الملفات المحددة
+						</h2>
+							<span id="separator"></span>
+						<span id="file-count" class="text-md font-medium text-zinc-700 mx-1"></span>
+						</div>
+						<ul
+							id="file-list"
+							class="max-h-64 space-y-2 overflow-y-auto rounded-lg border border-zinc-200 bg-zinc-50 p-3"
+						>
+							<li class="text-center text-sm text-zinc-400">
+								لا توجد ملفات محددة.
+							</li>
+						</ul>
+					</div>
+				</div>
+				<button
+					type="button"
+					id="process-btn"
+					class="w-full rounded-lg bg-zinc-900 py-3 font-medium text-white transition hover:bg-zinc-800 hover:cursor-pointer disabled:bg-black/70 disabled:cursor-not-allowed"
+				>
+					إنشاء الملف المضغوط
+				</button>
+			</form>
+		</main>
+		<script type="module" src="/src/main.ts"></script>
+	</body>
 </html>
