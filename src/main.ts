@@ -1,60 +1,75 @@
-import './style.css'
-import typescriptLogo from './assets/typescript.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import { setupCounter } from './counter.ts'
+const input = document.getElementById("files") as HTMLInputElement;
+const list = document.getElementById("file-list") as HTMLUListElement;
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-<section id="center">
-  <div class="hero">
-    <img src="${heroImg}" class="base" width="170" height="179">
-    <img src="${typescriptLogo}" class="framework" alt="TypeScript logo"/>
-    <img src="${viteLogo}" class="vite" alt="Vite logo" />
-  </div>
-  <div>
-    <h1>Get started</h1>
-    <p>Edit <code>src/main.ts</code> and save to test <code>HMR</code></p>
-  </div>
-  <button id="counter" type="button" class="counter"></button>
-</section>
+let files: File[] = [];
 
-<div class="ticks"></div>
+input.addEventListener("change", () => {
+	files = Array.from(input.files ?? []);
+	renderFiles();
+});
 
-<section id="next-steps">
-  <div id="docs">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#documentation-icon"></use></svg>
-    <h2>Documentation</h2>
-    <p>Your questions, answered</p>
-    <ul>
-      <li>
-        <a href="https://vite.dev/" target="_blank">
-          <img class="logo" src="${viteLogo}" alt="" />
-          Explore Vite
-        </a>
-      </li>
-      <li>
-        <a href="https://www.typescriptlang.org" target="_blank">
-          <img class="button-icon" src="${typescriptLogo}" alt="">
-          Learn more
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div id="social">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#social-icon"></use></svg>
-    <h2>Connect with us</h2>
-    <p>Join the Vite community</p>
-    <ul>
-      <li><a href="https://github.com/vitejs/vite" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#github-icon"></use></svg>GitHub</a></li>
-      <li><a href="https://chat.vite.dev/" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#discord-icon"></use></svg>Discord</a></li>
-      <li><a href="https://x.com/vite_js" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#x-icon"></use></svg>X.com</a></li>
-      <li><a href="https://bsky.app/profile/vite.dev" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#bluesky-icon"></use></svg>Bluesky</a></li>
-    </ul>
-  </div>
-</section>
+const textFields = document.querySelectorAll<HTMLInputElement>("input[type='text']")
 
-<div class="ticks"></div>
-<section id="spacer"></section>
-`
+textFields.forEach((f: HTMLInputElement) => {
+	f.addEventListener("focus", () => {
+		if (f.value === "00") f.value = ""
+	})
+	f.addEventListener("blur", () => {
+		if (f.value === "") f.value = "00"
+	})
+})
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+function renderFiles() {
+	list.innerHTML = "";
+
+	if (files.length === 0) {
+		list.innerHTML = `
+			<li class="text-center text-sm text-zinc-400">
+				لم يتم اختيار أي ملفات بعد
+			</li>
+		`;
+		return;
+	}
+
+	for (const file of files) {
+		const li = document.createElement("li");
+		li.className =
+			"flex items-center justify-between rounded bg-white px-3 py-2 shadow-sm";
+
+		li.innerHTML = `
+			<span class="truncate">${escapeHtml(file.name)}</span>
+			<span class="text-xs text-zinc-500">
+				${formatSize(file.size)}
+			</span>
+		`;
+
+		list.appendChild(li);
+	}
+}
+
+function escapeHtml(str: string) {
+	const div = document.createElement("div");
+	div.textContent = str;
+	return div.innerHTML;
+}
+
+function formatSize(bytes: number) {
+	const units = ["B", "KB", "MB", "GB"];
+
+	let value = bytes;
+	let i = 0;
+
+	while (value >= 1024 && i < units.length - 1) {
+		value /= 1024;
+		i++;
+	}
+
+	return `${value.toFixed(1)} ${units[i]}`;
+}
+
+// app logic goes below
+
+const processButton = document.querySelector<HTMLButtonElement>("#process-btn")
+processButton?.addEventListener("click", () => {
+	console.log("button pressed")
+})
